@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:med_ez/data/models/api_res_model.dart';
-import 'package:med_ez/data/models/user_model.dart';
 
 class IdNotifier extends StateNotifier<String> {
   IdNotifier() : super("");

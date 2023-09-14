@@ -7,9 +7,9 @@ void showCustomSnackBar(String content, BuildContext context,
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       padding: const EdgeInsets.fromLTRB(20, 5, 10, 10),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       behavior: SnackBarBehavior.floating,
-      duration: Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1500),
       elevation: 6,
       content: Text(
         content,

@@ -27,8 +27,15 @@ class PrimaryButton extends StatelessWidget {
         ),
       ),
       child: (isLoading)
-          ? CircularProgressIndicator.adaptive(
-              backgroundColor: bgSecondaryColor)
+          ? SizedBox(
+              height: 25,
+              width: 25,
+              child: const CircularProgressIndicator.adaptive(
+                backgroundColor: Colors.white,
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation(appBarColor),
+              ),
+            )
           : Text(
               data,
               style: const TextStyle(

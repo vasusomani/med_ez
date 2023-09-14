@@ -14,7 +14,6 @@ class ProgressGraph extends StatelessWidget {
         .toList();
 
     List<FlSpot> spots = painData.asMap().entries.map((entry) {
-      int index = entry.key;
       Pain pain = entry.value;
       DateTime date = DateTime.parse(pain.date);
       return FlSpot(

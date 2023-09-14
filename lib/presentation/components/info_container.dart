@@ -64,6 +64,5 @@ class InfoContainer extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
