@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:med_ez/presentation/components/custom_buttons.dart';
+import '../components/custom_buttons.dart';
 import '../components/custom_snackbar.dart';
 import '../../data/services/state_management.dart';
 import '../components/page_navigator.dart';
@@ -22,7 +22,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _authService = AuthService();
 
-  late String _buttonText;
+  bool isLoading = false;
   late String _userId;
   late String _password;
 
@@ -31,7 +31,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _buttonText = 'Login';
     _userId = '';
     _password = '';
   }
@@ -61,7 +60,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     bool result = await InternetConnectionChecker().hasConnection;
     if (result == true) {
       setState(() {
-        _buttonText = "Logging you in!";
+        isLoading = true;
       });
 
       final response = await _authService.login(_userId, _password);
@@ -80,21 +79,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             // Successful login
             await _saveData();
             ref.watch(idProvider.notifier).changeId(_userId);
+            setState(() {
+              isLoading = false;
+            });
             showCustomSnackBar("Loggedin Succesfully", context);
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => PagesNavigator()));
           } else {
-            // Handle unsuccessful login
             setState(() {
-              _buttonText = 'Login';
+              isLoading = false;
             });
             showCustomSnackBar("Invalid username or password", context,
                 isAlert: true);
           }
         } else {
-          // Handle other status codes (non-200)
           setState(() {
-            _buttonText = 'Login';
+            isLoading = false;
           });
           showCustomSnackBar(
               "Something went wrong! Please try again later", context,
@@ -102,9 +102,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           // Show an error message or handle as needed
         }
       } else {
-        // Handle network error or other exceptions
         setState(() {
-          _buttonText = 'Login';
+          isLoading = false;
         });
         showCustomSnackBar(
             "Something went wrong! Please try again later", context,
@@ -112,6 +111,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         // Show an error message or handle as needed
       }
     } else {
+      setState(() {
+        isLoading = false;
+      });
       showCustomSnackBar("No internet connection found!", context,
           isAlert: true);
     }
@@ -126,87 +128,117 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       },
       child: Scaffold(
         body: Container(
+          alignment: Alignment.center,
+          height: double.infinity,
           decoration: const BoxDecoration(gradient: bgGradient),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Patient Login",
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w700,
-                        color: bgPrimaryColor,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    TextField(
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 15.0,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'User ID',
-                        hintStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w200,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Image.asset(
+                          'assets/images/medic3.png',
+                          scale: 2,
                         ),
                       ),
-                      onChanged: _handleEmailNumberChanged,
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'Password',
-                        hintStyle: const TextStyle(
-                          color: bgPrimaryColor,
-                          fontWeight: FontWeight.w200,
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                          child: Icon(
-                            _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: bgPrimaryColor,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 170),
+                          child: Column(
+                            children: [
+                              // const Text(
+                              //   "Patient Login",
+                              //   style: TextStyle(
+                              //     fontSize: 30,
+                              //     fontWeight: FontWeight.w700,
+                              //     color: bgPrimaryColor,
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 20),
+                              TextField(
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0,
+                                    vertical: 15.0,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                  ),
+                                  hintText: 'User ID',
+                                  hintStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                ),
+                                onChanged: _handleEmailNumberChanged,
+                              ),
+                              const SizedBox(height: 10),
+                              TextField(
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 15.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                  ),
+                                  hintText: 'Password',
+                                  hintStyle: const TextStyle(
+                                    color: bgPrimaryColor,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                    child: Icon(
+                                      _obscureText
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: bgPrimaryColor,
+                                    ),
+                                  ),
+                                ),
+                                obscureText: _obscureText,
+                                onChanged: _handlePasswordChanged,
+                              ),
+                              const SizedBox(height: 35),
+                              PrimaryButton(
+                                onPressed: _handleLoginPressed,
+                                data: "Login",
+                                vertical: 10,
+                                isLoading: isLoading,
+                              )
+                            ],
                           ),
                         ),
                       ),
-                      obscureText: _obscureText,
-                      onChanged: _handlePasswordChanged,
-                    ),
-                    const SizedBox(height: 35),
-                    PrimaryButton(
-                        onPressed: _handleLoginPressed, data: _buttonText)
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'logout_dialog.dart';
 import '../../constants/colors.dart';
@@ -45,31 +46,39 @@ class _PagesNavigatorState extends State<PagesNavigator> {
             ],
           ),
           body: currentPage,
-          bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: BottomNavigationBar(
-              backgroundColor: appBarColor.withOpacity(0.8),
-              selectedItemColor: bgPrimaryColor,
-              selectedIconTheme: const IconThemeData(size: 35),
-              unselectedItemColor: bgPrimaryColor,
-              currentIndex: widget.mainIndex,
-              iconSize: 30,
-              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.space_dashboard_rounded),
-                  label: "Dashboard",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person_2_rounded),
-                  label: "Profile",
-                ),
-              ],
-              onTap: (value) {
-                setState(() {
-                  widget.mainIndex = value;
-                });
-              },
+          bottomNavigationBar: Padding(
+            padding: (Platform.isIOS)
+                ? const EdgeInsets.only(top: 5)
+                : const EdgeInsets.fromLTRB(10, 0, 10, 15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: BottomNavigationBar(
+                elevation: 0,
+                backgroundColor: appBarColor.withOpacity(0.8),
+                selectedItemColor: bgPrimaryColor,
+                selectedIconTheme: const IconThemeData(size: 27),
+                unselectedIconTheme:
+                    const IconThemeData(size: 23, color: Colors.white70),
+                unselectedItemColor: Colors.white70,
+                currentIndex: widget.mainIndex,
+                selectedLabelStyle:
+                    const TextStyle(fontWeight: FontWeight.bold),
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.space_dashboard_rounded),
+                    label: "Dashboard",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person_2_rounded),
+                    label: "Profile",
+                  ),
+                ],
+                onTap: (value) {
+                  setState(() {
+                    widget.mainIndex = value;
+                  });
+                },
+              ),
             ),
           )),
     );

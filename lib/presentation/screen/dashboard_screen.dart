@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:med_ez/constants/colors.dart';
+import '../../constants/colors.dart';
 import '../../data/services/state_management.dart';
 import '../../data/models/api_res_model.dart';
 import '../../data/services/api_service.dart';
@@ -42,12 +42,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 itemCount: apiResponse?.latestAssessment.exercises.length,
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
               ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         floatingActionButton: ElevatedButton(
           style: ButtonStyle(
               backgroundColor:
                   MaterialStatePropertyAll(appBarColor.withOpacity(0.8)),
-              shape: MaterialStatePropertyAll(CircleBorder()),
-              padding: MaterialStatePropertyAll(EdgeInsets.all(15))),
+              shape: const MaterialStatePropertyAll(CircleBorder()),
+              padding: const MaterialStatePropertyAll(
+                EdgeInsets.all(15),
+              )),
           onPressed: () => _loadData(isServerData: true),
           child: RotationTransition(
             turns: AlwaysStoppedAnimation(isLoading ? 1 : 0),
@@ -82,6 +85,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     Map<String, dynamic>? updatedPatientDetails =
         await ApiService().fetchPatientData(userID);
     apiResponse = ApiResponse.fromJson(updatedPatientDetails);
+    ref.watch(userProvider.notifier).updateData(apiResponse);
     log("Patient Data fetched from Server");
     await HelperFunctions.savePatientDetails(updatedPatientDetails);
     // String? response = await HelperFunctions.getLastUpdatedDate();

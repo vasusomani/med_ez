@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'logic/utils/shared_preferences.dart';
 import 'presentation/router/route_generator.dart';
@@ -8,6 +9,8 @@ bool? loginStatus;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   loginStatus = await HelperFunctions.getUserLoggedInStatus();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
   debugPrint(loginStatus.toString());
   runApp(const ProviderScope(child: MyApp()));
 }
