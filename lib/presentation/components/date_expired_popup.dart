@@ -10,7 +10,7 @@ void showDateExpiredPopUp(BuildContext context) {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           content: const Text(
-            "Your deadline has been expired",
+            "Sorry! Your deadline to view this video has been expired already",
             style: TextStyle(color: alertColor),
           ),
         );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:med_ez/presentation/screen/video_screen.dart';
 import '../../data/models/api_res_model.dart';
 import '../../data/models/exercises_model.dart';
 import '../../constants/colors.dart';
+import 'date_expired_popup.dart';
 
 class ExerciseContainer extends StatelessWidget {
   const ExerciseContainer({
@@ -81,12 +83,16 @@ class ExerciseContainer extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: GestureDetector(
-                  onTap: () => currDateObj.isAfter(expDateObj)
+                  onTap: () => !currDateObj.isAfter(expDateObj)
                       ? null
-                      : Navigator.of(context).pushNamed('/webview', arguments: [
-                          exerciseList[index].link,
-                          exerciseList[index].nameOfExercise
-                        ]),
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPlayerScreen(
+                                url: exerciseList[index].link,
+                                exerciseName:
+                                    exerciseList[index].nameOfExercise),
+                          )),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),

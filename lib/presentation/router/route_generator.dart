@@ -19,16 +19,16 @@ class RouteGenerator extends NavigatorObserver {
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case '/dashboard':
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
-      case '/webview': // Add the case for the web view route
-        if (settings.arguments is List<String>) {
-          final List<String> data = settings.arguments as List<String>;
-          return MaterialPageRoute(
-              builder: (_) => WebViewScreen(
-                    url: data[0],
-                    exerciseName: data[1],
-                  ));
-        }
-        return _errorRoute();
+      // case '/webview': // Add the case for the web view route
+      //   if (settings.arguments is List<String>) {
+      //     final List<String> data = settings.arguments as List<String>;
+      //     return MaterialPageRoute(
+      //         builder: (_) => WebViewScreen(
+      //               url: data[0],
+      //               exerciseName: data[1],
+      //             ));
+      //   }
+      //   return _errorRoute();
       default:
         return _errorRoute();
     }

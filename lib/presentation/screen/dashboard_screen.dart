@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +28,20 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     super.initState();
   }
 
+  _DashboardScreenState() {
+    /// Init Alan Button with project key from Alan AI Studio
+    AlanVoice.addButton(
+      "c25662af6edb2b8a6d36dcb5ba0cc49f2e956eca572e1d8b807a3e2338fdd0dc/testing",
+      buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT,
+      bottomMargin: 100,
+    );
+
+    /// Handle commands from Alan AI Studio
+    AlanVoice.onCommand.add((command) {
+      debugPrint("got new command ${command.toString()}");
+    });
+    AlanVoice.setWakewordEnabled(true);
+  }
   @override
   Widget build(BuildContext context) {
     userID = ref.watch(idProvider);

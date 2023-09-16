@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'custom_snackbar.dart';
@@ -24,9 +25,17 @@ void showLogoutDialog(BuildContext context) {
                   ),
                   CupertinoDialogAction(
                     isDestructiveAction: true,
-                    onPressed: () {
-                      Navigator.popUntil(
-                          context, ModalRoute.withName('/login'));
+                    onPressed: () async {
+                      AlanVoice.deactivate();
+                      AlanVoice.hideButton();
+                      if (context.mounted) {
+                        await HelperFunctions.clearSharedPreferences();
+                        showCustomSnackBar("Logged Out Successfully!", context);
+                        Navigator.popUntil(
+                            context, ModalRoute.withName('/login'));
+                        Navigator.pushNamed(context, '/');
+                        Navigator.pushNamed(context, '/login');
+                      } // Close the dialog
                     },
                     child: const Text("Log Out"),
                   )
@@ -64,10 +73,13 @@ void showLogoutDialog(BuildContext context) {
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)))),
                     onPressed: () async {
-                      await HelperFunctions.clearSharedPreferences();
+                      AlanVoice.deactivate();
+                      AlanVoice.hideButton();
                       if (context.mounted) {
+                        await HelperFunctions.clearSharedPreferences();
                         showCustomSnackBar("Logged Out Successfully!", context);
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
+                        Navigator.popUntil(
+                            context, ModalRoute.withName('/login'));
                         Navigator.pushNamed(context, '/');
                         Navigator.pushNamed(context, '/login');
                       } // Close the dialog

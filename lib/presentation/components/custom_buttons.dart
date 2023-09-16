@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
@@ -30,10 +32,10 @@ class PrimaryButton extends StatelessWidget {
           ? SizedBox(
               height: 25,
               width: 25,
-              child: const CircularProgressIndicator.adaptive(
-                backgroundColor: Colors.white,
+              child: CircularProgressIndicator.adaptive(
+                backgroundColor: (Platform.isIOS) ? primaryColor : Colors.white,
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation(appBarColor),
+                valueColor: const AlwaysStoppedAnimation(primaryColor),
               ),
             )
           : Text(
