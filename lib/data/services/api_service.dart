@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:med_ez/logic/utils/shared_preferences.dart';
 import 'package:med_ez/presentation/components/custom_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -13,7 +14,6 @@ class ApiService {
   Future<Map<String, dynamic>> fetchPatientData(String patientId) async {
     final url = Uri.parse('$baseUrl/app/ViewPatientData');
     final headers = {"Content-type": "application/json"};
-
     final body = json.encode({
       "Patient_Id": patientId,
     });
@@ -27,7 +27,7 @@ class ApiService {
         throw Exception('Failed to fetch patient data ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Failed to fetch patient data');
+      throw Exception('Failed to fetch patient data $e');
     }
   }
 

@@ -5,10 +5,10 @@ packages:
     dependency: "direct main"
     description:
       name: alan_voice
-      sha256: b6486b7201691305aef48d4121a8b0f65e299d58a24f70bdd805cf7d5201080c
+      sha256: df776b4e6408c2cfafb51add7db92381bb8bfd3999172a826455db21bd83e9da
       url: "https://pub.dev"
     source: hosted
-    version: "3.12.0"
+    version: "4.4.0"
   archive:
     dependency: transitive
     description:

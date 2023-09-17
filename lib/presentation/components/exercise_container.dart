@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:med_ez/presentation/screen/video_screen.dart';
+import '../screen/video_screen.dart';
 import '../../data/models/api_res_model.dart';
 import '../../data/models/exercises_model.dart';
 import '../../constants/colors.dart';

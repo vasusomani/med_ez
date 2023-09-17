@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions {
@@ -27,7 +28,9 @@ class HelperFunctions {
     SharedPreferences sf = await SharedPreferences.getInstance();
     final patientDetailsString = sf.getString(patientDetailsKey);
     if (patientDetailsString != null) {
-      return json.decode(patientDetailsString);
+      final data = json.decode(patientDetailsString);
+      debugPrint(data.toString());
+      return data;
     }
     return null;
   }

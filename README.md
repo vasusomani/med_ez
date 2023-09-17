@@ -1,16 +1,18 @@
-# med_ez
+# Med Ez App
 
-A new Flutter project.
+The Med Ez is a mobile application designed to provide remote access to physiotherapy exercise prescription videos. It features a voice-controlled AI assistant for easy navigation and offers pain level tracking and prediction.
+
+## Features
+
+- Access physiotherapy exercise videos remotely.
+- Use a voice-controlled AI assistant for a user-friendly experience.
+- Track and predict pain levels to manage treatment effectively.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Clone this repository to your local machine.
+2. Install the required dependencies.
+3. Run the app on an emulator or physical device.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thank you for using the Med Ez!

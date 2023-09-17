@@ -22,7 +22,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   ApiResponse? apiResponse;
   bool isLoading = false;
   late DateTime lastUpdatedDate;
-  late String userID;
   @override
   void initState() {
     _loadData();
@@ -49,7 +48,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   Widget build(BuildContext context) {
     AlanVoice.activate();
     AlanVoice.showButton();
-    userID = ref.watch(idProvider);
     return Scaffold(
         body: isLoading
             ? const Center(
@@ -102,7 +100,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Future _loadServerPatientDetails() async {
-    Map<String, dynamic>? updatedPatientDetails =
+    String userID = apiResponse!.patientDetails.patientId;
+    Map<String, dynamic> updatedPatientDetails =
         await ApiService().fetchPatientData(userID);
     apiResponse = ApiResponse.fromJson(updatedPatientDetails);
     ref.watch(dataProvider.notifier).updateData(apiResponse);
