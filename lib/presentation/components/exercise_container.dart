@@ -4,7 +4,6 @@ import 'package:med_ez/presentation/screen/video_screen.dart';
 import '../../data/models/api_res_model.dart';
 import '../../data/models/exercises_model.dart';
 import '../../constants/colors.dart';
-import 'date_expired_popup.dart';
 
 class ExerciseContainer extends StatelessWidget {
   const ExerciseContainer({
@@ -89,9 +88,9 @@ class ExerciseContainer extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => VideoPlayerScreen(
-                                url: exerciseList[index].link,
-                                exerciseName:
-                                    exerciseList[index].nameOfExercise),
+                              index: index,
+                              data: apiResponse,
+                            ),
                           )),
                   child: Container(
                     padding: const EdgeInsets.symmetric(

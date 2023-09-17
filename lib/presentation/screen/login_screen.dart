@@ -1,3 +1,4 @@
+import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -121,6 +122,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AlanVoice.deactivate();
+    AlanVoice.hideButton();
     return WillPopScope(
       onWillPop: () async {
         Navigator.popUntil(context, (route) => route.isFirst);

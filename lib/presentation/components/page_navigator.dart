@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:med_ez/data/services/api_service.dart';
 import 'logout_dialog.dart';
 import '../../constants/colors.dart';
 import '../screen/dashboard_screen.dart';
@@ -24,6 +25,10 @@ class _PagesNavigatorState extends State<PagesNavigator> {
             title: widget.mainIndex == 0
                 ? const Text("My Dashboard")
                 : const Text("My Profile"),
+            leading: IconButton(
+                onPressed: () async => await ApiService()
+                    .getDischargeReport("23ST579", "2023-08-05"),
+                icon: Icon(Icons.download)),
             automaticallyImplyLeading: false,
             centerTitle: true,
             elevation: 0.7,
@@ -46,10 +51,11 @@ class _PagesNavigatorState extends State<PagesNavigator> {
             ],
           ),
           body: currentPage,
-          bottomNavigationBar: Padding(
+          bottomNavigationBar: Container(
+            color: Colors.transparent,
             padding: (Platform.isIOS)
-                ? const EdgeInsets.only(top: 5)
-                : const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                ? const EdgeInsets.all(0)
+                : const EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: BottomNavigationBar(

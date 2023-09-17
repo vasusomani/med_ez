@@ -1,3 +1,4 @@
+import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 import '../components/custom_buttons.dart';
@@ -7,6 +8,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AlanVoice.deactivate();
+    AlanVoice.hideButton();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: bgGradient),

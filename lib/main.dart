@@ -13,7 +13,13 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
   runApp(const ProviderScope(child: MyApp()));
+  AlanVoice.addButton(
+    "c25662af6edb2b8a6d36dcb5ba0cc49f2e956eca572e1d8b807a3e2338fdd0dc/testing",
+    buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT,
+    bottomMargin: 100,
+  );
   AlanVoice.deactivate();
+  AlanVoice.hideButton();
 }
 
 class MyApp extends StatelessWidget {
@@ -22,6 +28,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    AlanVoice.deactivate();
+    AlanVoice.hideButton();
     return MaterialApp(
       title: 'Med-Ez',
       theme: ThemeData(

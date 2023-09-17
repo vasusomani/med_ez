@@ -4,6 +4,7 @@ import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/services/voice_assistant.dart';
 import '../../constants/colors.dart';
 import '../../data/services/state_management.dart';
 import '../../data/models/api_res_model.dart';
@@ -29,21 +30,25 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   _DashboardScreenState() {
-    /// Init Alan Button with project key from Alan AI Studio
-    AlanVoice.addButton(
-      "c25662af6edb2b8a6d36dcb5ba0cc49f2e956eca572e1d8b807a3e2338fdd0dc/testing",
-      buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT,
-      bottomMargin: 100,
-    );
-
-    /// Handle commands from Alan AI Studio
-    AlanVoice.onCommand.add((command) {
-      debugPrint("got new command ${command.toString()}");
-    });
     AlanVoice.setWakewordEnabled(true);
+    AlanVoice.onCommand.add(
+      (command) {
+        switch (command.data["command"]) {
+          case "play_first_video":
+            VoiceAssistant().playFirstVideo(context, apiResponse!);
+            break;
+          case "play_last_video":
+            VoiceAssistant().playLastVideo(context, apiResponse!);
+            break;
+        }
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
+    AlanVoice.activate();
+    AlanVoice.showButton();
     userID = ref.watch(idProvider);
     return Scaffold(
         body: isLoading
@@ -100,7 +105,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     Map<String, dynamic>? updatedPatientDetails =
         await ApiService().fetchPatientData(userID);
     apiResponse = ApiResponse.fromJson(updatedPatientDetails);
-    ref.watch(userProvider.notifier).updateData(apiResponse);
+    ref.watch(dataProvider.notifier).updateData(apiResponse);
     log("Patient Data fetched from Server");
     await HelperFunctions.savePatientDetails(updatedPatientDetails);
     // String? response = await HelperFunctions.getLastUpdatedDate();

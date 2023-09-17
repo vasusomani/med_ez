@@ -41,6 +41,7 @@ dependencies:
   fl_chart: ^0.63.0
   alan_voice: ^3.0.0
   video_player: ^2.7.1
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:

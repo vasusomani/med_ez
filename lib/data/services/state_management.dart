@@ -20,5 +20,5 @@ class DataNotifier extends StateNotifier<ApiResponse?> {
   }
 }
 
-final userProvider =
+final dataProvider =
     StateNotifierProvider<DataNotifier, ApiResponse?>((ref) => DataNotifier());

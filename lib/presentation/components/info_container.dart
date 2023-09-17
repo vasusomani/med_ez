@@ -16,7 +16,7 @@ class InfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      margin: const EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: containerColor,
