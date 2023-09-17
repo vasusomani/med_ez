@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_ez/data/services/api_service.dart';
 
 import '../../Constants/colors.dart';
 
@@ -7,11 +8,17 @@ class InfoContainer extends StatelessWidget {
     this.label,
     this.value, {
     this.date = "",
+    this.id = "",
+    this.lastAssessmentDate = "",
+    this.isPdf = false,
     Key? key,
   }) : super(key: key);
   final String label;
   final String value;
   final String date;
+  final String id;
+  final String lastAssessmentDate;
+  final bool isPdf;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,7 +65,20 @@ class InfoContainer extends StatelessWidget {
                     fontSize: 14,
                     color: Color(0xff00425A),
                   ),
-                )
+                ),
+              if (isPdf)
+                IconButton(
+                    onPressed: () async {
+                      debugPrint(id);
+                      debugPrint(lastAssessmentDate);
+                      final pdfContent = await ApiService()
+                          .getDischargeReport(id, lastAssessmentDate);
+                      ApiService().savePDF(context, pdfContent);
+                    },
+                    icon: const Icon(
+                      Icons.download,
+                      color: appBarColor,
+                    ))
             ],
           ),
         ],

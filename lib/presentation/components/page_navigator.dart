@@ -25,10 +25,6 @@ class _PagesNavigatorState extends State<PagesNavigator> {
             title: widget.mainIndex == 0
                 ? const Text("My Dashboard")
                 : const Text("My Profile"),
-            leading: IconButton(
-                onPressed: () async => await ApiService()
-                    .getDischargeReport("23ST579", "2023-08-05"),
-                icon: Icon(Icons.download)),
             automaticallyImplyLeading: false,
             centerTitle: true,
             elevation: 0.7,

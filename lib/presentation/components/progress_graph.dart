@@ -20,6 +20,9 @@ class ProgressGraph extends StatelessWidget {
           date.millisecondsSinceEpoch.toDouble(), double.parse(pain.painScale));
     }).toList();
 
+    // Find the index of the second last point
+    int secondLastIndex = spots.length - 2;
+
     return Column(
       children: [
         Container(
@@ -34,11 +37,19 @@ class ProgressGraph extends StatelessWidget {
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
-                  spots: spots,
+                  spots: spots.sublist(0, secondLastIndex + 1),
                   preventCurveOverShooting: true,
                   isCurved: true,
                   color: appBarColor,
                   belowBarData: BarAreaData(show: false),
+                ),
+                LineChartBarData(
+                  spots: [spots[secondLastIndex], spots.last],
+                  preventCurveOverShooting: true,
+                  isCurved: true,
+                  color: (spots[secondLastIndex].y > spots.last.y)
+                      ? Colors.red
+                      : Colors.green,
                 ),
               ],
               minY: 0,

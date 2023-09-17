@@ -103,6 +103,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           "Address",
                           userData?["patient_details"]["Address"],
                         ),
+                        InfoContainer(
+                          "Discharge Sheet",
+                          "Download discharge sheet",
+                          id: userData?["patient_details"]["Patient_Id"],
+                          lastAssessmentDate: userData!["latest_assessment"]
+                              ["DateOfAssessment"],
+                          isPdf: true,
+                        ),
                       ],
                     ),
                   ),
