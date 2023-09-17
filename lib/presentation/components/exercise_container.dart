@@ -82,7 +82,7 @@ class ExerciseContainer extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: GestureDetector(
-                  onTap: () => !currDateObj.isAfter(expDateObj)
+                  onTap: () => currDateObj.isAfter(expDateObj)
                       ? null
                       : Navigator.push(
                           context,

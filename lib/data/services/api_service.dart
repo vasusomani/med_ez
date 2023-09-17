@@ -3,13 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:med_ez/presentation/components/custom_snackbar.dart';
-import 'package:med_ez/presentation/screen/pdf_screen.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';
-
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class ApiService {
   final String baseUrl = "https://hope-backend.onrender.com";
@@ -78,10 +74,5 @@ class ApiService {
     await file.writeAsBytes(await pdf.save());
 
     showCustomSnackBar("Report has been downloaded successfuly", context);
-
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => SfPdfViewer.file(File(filePath))));
   }
 }

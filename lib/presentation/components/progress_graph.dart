@@ -48,8 +48,8 @@ class ProgressGraph extends StatelessWidget {
                   preventCurveOverShooting: true,
                   isCurved: true,
                   color: (spots[secondLastIndex].y > spots.last.y)
-                      ? Colors.red
-                      : Colors.green,
+                      ? Colors.green
+                      : Colors.red,
                 ),
               ],
               minY: 0,
@@ -154,7 +154,7 @@ class ProgressGraph extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        pain.comments,
+                        (pain.comments == "") ? "Prediction" : pain.comments,
                         style: const TextStyle(color: appBarColor),
                       ),
                     ),

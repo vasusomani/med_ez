@@ -27,10 +27,12 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
   void initState() {
     debugPrint(
         widget.data!.latestAssessment.exercises[widget.index].link.toString());
-    final videoID = YoutubePlayer.convertUrlToId(
-        "https://www.youtube.com/watch?v=Hk5-7RFSsR0");
     // final videoID = YoutubePlayer.convertUrlToId(
-    //     widget.data!.latestAssessment.exercises[widget.index].link.toString());
+    //     "https://www.youtube.com/watch?v=Hk5-7RFSsR0");
+    debugPrint(
+        widget.data!.latestAssessment.exercises[widget.index].link.toString());
+    final videoID = YoutubePlayer.convertUrlToId(
+        widget.data!.latestAssessment.exercises[widget.index].link.toString());
     if (videoID == null) {
       debugPrint("VIDEOID NULL");
     }
