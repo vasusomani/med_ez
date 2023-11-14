@@ -14,5 +14,6 @@ The Med Ez is a mobile application designed to provide remote access to physioth
 2. Install the required dependencies.
 3. Run the app on an emulator or physical device.
 
-
 Thank you for using the Med Ez!
+
+![Med-Ez](https://github.com/vasusomani/med_ez/assets/114124878/51e58553-8eda-4405-aa86-b1acb4ffa3f2)
